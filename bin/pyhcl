@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+from argparse import ArgumentParser, RawTextHelpFormatter
+
+from pyhcl.hcl import HCL
+
+
+def __init__():
+
+    parser = ArgumentParser(formatter_class = RawTextHelpFormatter, description = 'HCL color space.', epilog = 'Liucongcong congcong_liu@icloud.com.')
+    parser.add_argument('colors', type = int, metavar = 'colors', help = 'Number of colors to generate from the HCL color space.')
+    parser.add_argument('-t', '--color_type', default = 'hex', type = str, choices = ('hex', 'dec'), metavar = 'hex|dec', help = 'Type of output color:\nhex (default): #[00-FF][00-FF][00-FF]\ndec: [0-255][0-255][0-255]')
+    parser.add_argument('-v', '--version', action = 'version', version = '%(prog)s 1.0.0')
+
+    return parser.parse_args()
+
+
+if __name__ == '__main__':
+    parameters = __init__()
+    hcl = HCL(type = parameters.color_type)
+    for color in hcl.main(parameters.colors):
+        print(color)
